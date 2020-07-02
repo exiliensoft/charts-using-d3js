@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v4.0.0-alpha.40.min.js"></script>
+	<script src="trip_data.js"></script>
+  </head>
+  <body>
+    <input type="checkbox" class="myCheckbox" value="solar"> solar
+    <input type="checkbox" class="myCheckbox" value="wind"> wind
+    <input type="checkbox" class="myCheckbox" value="biomas"> biomas
+
+    <div id="content"></div>
+    <script>    
+      
+      table = d3.select("#content")
+          .append("table")
+          .property("border","1px");
+      d3.selectAll(".myCheckbox").on("change",update);
+      update();
+      
+      
+      function update(){
+			var choices = [];
+			d3.selectAll(".myCheckbox").each(function(d){
+			  cb = d3.select(this);
+			  if(cb.property("checked")){
+				choices.push(cb.property("value"));
+			  }
+			});
+		  
+			if(choices.length > 0){
+			  newData = data.filter(function(d,i){ 
+			     //console.log(getIconsAndLinks(d,choices));
+                  return getIconsAndLinks(d,choices);
+				
+				  // 
+			  });
+			  var active_countries = newData.map(function(a) {return a.country;});
+			  var unique = active_countries.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+			  
+			  /*g.selectAll('path')
+				 .attr('fill', function(t){
+					return colorCountryLegend(t, unique);
+				 });*/
+			  //console.log(newData);
+			 
+			} else {
+			  newData = data;     
+			} 
+        		  	// get icons and links
+		function getIconsAndLinks(posts,c){
+           	keys = Object.keys(posts["posts"]);
+			  var st = "";
+			     keys.forEach(function(key, index){
+			
+				    //if not story
+				      if (key == "NoStory"){
+					     var this_img = "<p>Story coming soon...</p>" ;
+					     st = this_img
+				         } else {
+							     this_img = key;
+								 var this_img =  c.includes(this_img)
+								  var st = this_img;  
+							      //st += this_img;
+								  console.log(st);	
+                                }
+
+			    });
+				   
+
+		}
+		// color country according to legend
+			/*function colorCountryLegend(country, active_countries) {
+				if (active_countries.includes(country.id)) {
+					return '#f56260';
+				} else if (visited_countries.includes(country.id)) {
+					return '#c8b98d';
+				} else {
+					return '#e7d8ad';
+				}
+			};*/
+		}		  
+
+    </script>
+  </body>
+</html>

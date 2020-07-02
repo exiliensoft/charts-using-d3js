@@ -1,0 +1,96 @@
+@charset "utf-8";
+/* CSS Document */
+body { font-family:Verdana, Geneva, sans-serif !important; }
+.main-sect{background: rgba(0,103,200,1);
+background: -moz-linear-gradient(top, rgba(0,103,200,1) 0%, rgba(0,221,255,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,103,200,1)), color-stop(100%, rgba(0,221,255,1)));
+background: -webkit-linear-gradient(top, rgba(0,103,200,1) 0%, rgba(0,221,255,1) 100%);
+background: -o-linear-gradient(top, rgba(0,103,200,1) 0%, rgba(0,221,255,1) 100%);
+background: -ms-linear-gradient(top, rgba(0,103,200,1) 0%, rgba(0,221,255,1) 100%);
+background: linear-gradient(to bottom, rgba(0,103,200,1) 0%, rgba(0,221,255,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0067c8', endColorstr='#00ddff', GradientType=0 );
+}
+.head-1 { text-align: left; float: right; padding: 20px;}
+.head-2 {
+    padding-bottom: 20px;
+}
+.head-2 h1 { color: #fff; font-size: 43px; text-transform: uppercase; font-weight: bold; font-family: 'Poppins', sans-serif; text-align: center;}
+.head-2 h1 span {color:#5ebf07}
+.head-2 p {    font-family: 'Poppins', sans-serif;    font-size: 17px;    color: #fff;    text-align: center;    padding: 0 100px;}
+
+.head-footer {
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+#sticky-social p {
+    font-size: 14px;
+    color: #fff;
+    width: 110px;
+    text-align: left;
+    padding-left: 7px;
+}
+
+#sticky-social ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
+#sticky-social {
+   left: 20px;
+   position: fixed;
+   top: 180px;
+}
+#sticky-social a {
+    background: #333;
+    color: #fff;
+    display: block;
+    height: 110px;
+    position: relative;
+    width: 100px;
+    padding: 13px 7px; 
+
+}
+#sticky-social a span {
+   line-height: 20px;
+   left: -270px;
+   position: absolute;
+   text-align:center;
+   width:250px;
+   padding: 10px 10px 10px 0; min-height: 110px;
+}
+#sticky-social a:hover span {
+   left: 100%; top: 0;
+}
+#sticky-social a img.img-responsive {
+    margin: 0 auto;
+}
+#sticky-social a[class*="facebook"],
+#sticky-social a[class*="facebook"]:hover,
+#sticky-social a[class*="facebook"] span { background: #002157; }
+#sticky-social a[class*="facebook"]  {background: #0079a6; }
+#sticky-social a[class*="facebook"]:hover { background: #002157; }
+
+
+/* -------- media query css ------- */
+/* Custom, iPhone Retina */ 
+@media (min-width : 320px) and (max-width : 767px) {
+.head-2 h1 { font-size: 33px;}
+.head-2 p { padding: 0 10px 0 110px;}
+#sticky-social a span { font-size: 12px;}
+.controls { text-align: left!important;}	
+.controls .switch { display: block!important; width: 42%!important; margin: 0 auto;}
+#sticky-social a span { left: -320px; width: 300px; min-height: 90px;}
+#sticky-social { top: 140px;}
+#sticky-social a { height: 90px; width: 80px;  padding: 2px 7px;}
+}
+
+@media (min-width : 768px) and (max-width : 1024px) {
+.controls { text-align: left!important;}	
+.controls .switch { width: 30%!important; margin: 0 auto;}
+#sticky-social a span { font-size: 12px;}
+#sticky-social { top: 130px;}
+}
+

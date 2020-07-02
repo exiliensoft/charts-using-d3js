@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map</title>
+	<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="css/style3.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+</head>
+
+<style>
+body {
+  <!-- background-image: url(https://subtlepatterns.com/patterns/low_contrast_linen_@2X.png); -->
+  background-size: 256px;
+  background-color: #00d3fa;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+}
+h4 {
+  color: rgba(255,255,255, 0.75);
+  text-align: center;}
+h4  span.city {
+    color: rgba(255,255,255, 0.95);
+  }
+
+.country:hover{
+  stroke: #6c8829;
+  stroke-width: 1.5px;
+}
+.text{
+  font-size: 10px;
+  text-transform:capitalize;
+}
+<!-- #container {
+  margin: 1%;
+  border: 1px solid #3a3f4f;
+  border-radius: 2px;
+  height:100%;
+  overflow:hidden;
+  background: #575e70;
+} -->
+
+#container {
+    margin: unset;
+    border: none;
+    border-radius: unset;
+    height: unset;
+    overflow: hidden;
+    background: none;
+}
+
+.hidden { 
+  display: none; 
+}
+div.tooltip {
+  color: #222; 
+  background: #fff; 
+  padding: .5em; 
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px; 
+  box-shadow: 0px 0px 2px 0px #a6a6a6; 
+  opacity: 0.9; 
+  position: absolute;
+}
+.graticule {
+  fill: none;
+  <!-- stroke: #6c8829; -->
+  stroke: none;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.equator {
+  stroke: #ccc;
+  stroke-width: 1px;
+}
+<!-- css for checkbx buttons -->
+.controls {
+    margin-top: 1.5em;
+    font-weight: 700;
+    font-size: 18px;
+	padding-top:20px;
+}
+.controls .switch {
+    display: inline-block;
+    width: 16%;
+}
+.controls .switch .smallSwitchLabel {
+    display: none;
+    position: relative;
+    top: -4px;
+    margin-right: 8px;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+.controls .toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+}
+.controls input.toggle-round+label {
+    padding: 2px;
+    width: 40px;
+    height: 20px;
+    border-radius: 20px; background-color: #e0e0e0;
+}
+.controls .toggle+label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; margin-bottom:0px;
+}
+.controls input.toggle-round:checked+label {
+    background-color: #5ebf07;
+}
+.controls input.toggle-round+label::before {
+    right: 1px;
+    background-color: #343434;
+    border-radius: 20px;
+    -webkit-transition: background .4s;
+    transition: background .4s;
+}
+.controls input.toggle-round:checked+label:after {
+    margin-left: 21px;
+}
+.controls input.toggle-round+label::after {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    background-color: #fff;
+    border-radius: 50%;
+    -webkit-transition: margin .4s;
+    transition: margin .4s;
+}
+.controls input.toggle-round+label::after, .tcWrapper .controls input.toggle-round+label::before {
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    bottom: 1px;
+    content: "";
+}
+.controls .switch .switchLabel {
+    position: relative;
+    top: -4px;
+    margin-left: 8px;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s; color:#ffffff;
+}
+</style>
+<body>
+	<section class="main-sect">
+		<div class="head-1"><img src="images/icon-1.png" class="img-responsive"></div>
+		<div class="head-2">
+		 <div class="container">
+		  <div class="row">
+		   <div class="col-sm-12">
+			  <h1><span>Renew</span> <img src="images/air-icon.png"> <span>ble</span> energy usage across the world</h1>
+			  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce iaculis consectetur magna, id dignissim sem. Ut non ipsum quis ipsum lacinia posuere. Proin quis mollis felis. Aliquam ornare urna nisi, et sagittis nisl elementum quis. Nam ultricies, augue ac vulputate aliquam, nisi massa dictum orci, sed aliquet</p>
+		   </div>
+		  </div>
+		 </div>
+		</div>
+		<div class="container">
+		 <div class="row">
+		 <div class=" col-sm-2"></div>
+		  <div class="col-md-12  col-sm-10">
+		   <div class="controls">
+			<div class="switch">
+				<span class="smallSwitchLabel">Solar</span>
+				<input id="solar" class="toggle toggle-round" name="chkboxName" type="checkbox" value="solardata" checked="checked">
+				<label for="solar"></label>
+				<span class="switchLabel">Solar</span>
+			</div>
+			<div class="switch">
+				<span class="smallSwitchLabel">Wind</span>
+				<input id="wind" class="toggle toggle-round" type="checkbox" name="chkboxName" value="winddata" checked="checked">
+				<label for="wind"></label>
+				<span class="switchLabel">Wind</span>
+			</div>
+			<div class="switch">
+				<span class="smallSwitchLabel">Wave & tidal</span>
+				<input id="wave" name="checkbox" class="toggle toggle-round" name="chkboxName" type="checkbox" checked="checked">
+				<label for="wave"></label>
+				<span class="switchLabel">Wave & tidal</span>
+			</div>
+			<div class="switch">
+				<span class="smallSwitchLabel">Biomas</span>
+				<input id="biomas" name="checkbox" class="toggle toggle-round" name="chkboxName" type="checkbox" checked="checked">
+				<label for="biomas"></label>
+				<span class="switchLabel">Biomas</span>
+			</div>
+			<div class="switch">
+				<span class="smallSwitchLabel">Hydropower</span>
+				<input id="hydropower" name="checkbox" class="toggle toggle-round" name="chkboxName" type="checkbox" checked="checked">
+				<label for="hydropower"></label>
+				<span class="switchLabel">Hydropower</span>
+			</div>
+			<div class="switch">
+				<span class="smallSwitchLabel">Geothermal</span>
+				<input id="geothermal" name="checkbox" class="toggle toggle-round" name="chkboxName" type="checkbox" checked="checked">
+				<label for="geothermal"></label>
+				<span class="switchLabel">Geothermal</span>
+			</div>
+		</div>
+		  </div>
+		 </div>
+		</div>
+		<aside id="sticky-social">
+			<p>Click icon to find out more</p>
+			<ul>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/solar-strip.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/wind.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/wave-tidal.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/biomas.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/hydropower.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				<li><a href="#" class="entypo-facebook" target="_blank"><img src="images/geotharmal.png" class="img-responsive"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nibh nisl, sit amet convallis ex consequat non. </span></a></li>
+				
+				
+			</ul>
+		</aside>
+		<div id="container"></div>
+		<div class="head-footer"><a href="https://comparetheboilermarket.co.uk"><img src="images/logo-compre.png" class="img-responsive"></a></div>
+		
+	</section>
+</body>
+<!--<h4>Your location is: <span class="city"></span></h4>-->
+
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script>
+
+
+
+d3.select(window).on("resize", throttle);
+
+var zoom = d3.behavior.zoom()
+.scaleExtent([1, 9])
+.on("zoom", move);
+
+
+var width = document.getElementById('container').offsetWidth;
+var height = width / 2;
+
+var topo,projection,path,svg,g;
+
+var graticule = d3.geo.graticule();
+
+var tooltip = d3.select("#container").append("div").attr("class", "tooltip hidden");
+
+setup(width,height);
+
+function setup(width,height){
+  projection = d3.geo.mercator()
+  .translate([(width/2), (height/2)])
+  .scale( 160 );
+
+  path = d3.geo.path().projection(projection);
+
+  svg = d3.select("#container").append("svg")
+  .attr("width", width)
+  .attr("height", height + 8)
+  .call(zoom)
+  .on("click", click)
+  .append("g");
+
+  g = svg.append("g");
+
+}
+
+d3.json("setup-file.json", function(error, root) {
+
+	var world = root.files['world.json'].content
+	world = JSON.parse(world)
+	var countries = topojson.feature(world, world.objects.countries).features;
+
+	topo = countries;
+	draw(topo);
+
+});
+
+function draw(topo) {
+
+	svg.append("path")
+	.datum(graticule)
+	.attr("class", "graticule")
+	.attr("d", path);
+
+
+	g.append("path")
+	.datum({type: "LineString", coordinates: [[-180, 0], [-90, 0], [0, 0], [90, 0], [180, 0]]})
+	.attr("class", "equator")
+	.attr("d", path);
+		
+	var country = g.selectAll(".country").data(topo);
+	country.enter().insert("path")
+	.attr("class", "country")
+	.attr("d", path)
+	.attr("id", function(d,i) { return d.id; })
+	.attr("color", function(d,i) { return d.properties.color; })
+	.attr("title", function(d,i) { return d.properties.name; })
+	.attr("solar", function(d,i) { return d.properties.solar; })
+	.attr("wind", function(d,i) { return d.properties.wind; })
+	.attr("wave", function(d,i) { return d.properties.waves; })
+	.attr("biomas", function(d,i) { return d.properties.biomas; })
+	.attr("hydropower", function(d,i) { return d.properties.hydropower; })
+	.attr("geothermal", function(d,i) { return d.properties.geothermal; })
+	.style("fill", function(d, i) { 
+	/*d3.selectAll("input[type=checkbox]").on("click", function() {
+  var state = d3.select(this).property("checked");
+  var value1 = d3.select("#solar").property("value");
+  var value2 = d3.select("#wind").property("value");
+  alert(state);
+  alert(value1);
+  alert(value2);
+  if(state == true && value1 == "solardata"){
+  country.style("fill", function(d, i) {return "#adadad";});
+		//if solar is checked then
+		//country.style("fill", function(d, i) {return (d.properties.solar > 0+"%" ||d.properties.wind > 0+"%" || d.properties.waves > 0+"%" || d.properties.biomas > 0+"%" || d.properties.hydropower > 0+"%" || d.properties.geothermal > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(state == true && value2 == "winddata"){
+			ountry.style("fill", function(d, i) {return "#fff";});
+		}else{
+			country.style("fill", function(d, i) {return "#333";});
+		}
+  console.log(state);
+});*/
+
+	d3.selectAll("input[type=checkbox]").on("change",update);
+		function update(){
+		if(d3.selectAll("input[type=checkbox]").property("checked")){
+		//if all checkboxes are checked then
+			country.style("fill", function(d, i) {return (d.properties.solar > 0+"%" && d.properties.wind > 0+"%" && d.properties.waves > 0+"%" && d.properties.biomas > 0+"%" && d.properties.hydropower > 0+"%" && d.properties.geothermal > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#solar").property("checked")){
+		//if solar is checked then
+		country.style("fill", function(d, i) {return (d.properties.solar > 0+"%" ||d.properties.wind > 0+"%" || d.properties.waves > 0+"%" || d.properties.biomas > 0+"%" || d.properties.hydropower > 0+"%" || d.properties.geothermal > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#wind").property("checked")){
+		//if wind is checked then 
+		country.style("fill", function(d, i) {return (d.properties.wind > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#wave").property("checked")){
+		//if wave is checked then
+		country.style("fill", function(d, i) {return (d.properties.waves > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#biomas").property("checked")){
+		//if biomas is checked then
+		country.style("fill", function(d, i) {return (d.properties.biomas > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#hydropower").property("checked")){
+		//if hydropower is checked then
+		country.style("fill", function(d, i) {return (d.properties.hydropower > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else if(d3.select("#geothermal").property("checked")){
+		alert("hey");
+		//if geothermal is checked then
+		//country.style("fill", function(d, i) {return (d.properties.solar == undefined || d.properties.solar == 15+"%") ? "#c1d861" : "#e1f4be";});
+		country.style("fill", function(d, i) {return (d.properties.geothermal > 0+"%") ? "#c1d861" : "#e1f4be";});
+		}else{
+		//alert("one is off");
+		country.style("fill", function(d, i) {return "#e1f4be";});
+		}
+	}
+	
+	
+	return (d.properties.solar > 0.00+"%" || d.properties.wind > 0.00+"%" || d.properties.waves > 0.00+"%" || d.properties.biomas > 0.00+"%" || d.properties.hydropower > 0.00+"%" || d.properties.geothermal > 0.00+"%") ? "#c1d861" : "#e1f4be";
+	//return "#49cc90";return d.properties.color;
+	});
+
+	//offsets for tooltips
+	var offsetL = document.getElementById('container').offsetLeft+20;
+	var offsetT = document.getElementById('container').offsetTop+10;
+
+	//tooltips
+	country
+	.on("mousemove", function(d,i) {
+
+		var mouse = d3.mouse(svg.node()).map( function(d) { return parseInt(d); } );
+
+		tooltip.classed("hidden", false)
+		.attr("style", "left:"+(mouse[0]+offsetL)+"px;top:"+(mouse[1]+offsetT)+"px")
+		//.html(d.properties.name);
+		.html(function(){
+		return "<strong>"+ d.properties.name +"</strong> " + "<br>" + d.properties.solar + " Solar" + "<br>" + d.properties.wind + " Wind" + "<br>" + d.properties.waves + " Wave & Tidal" + "<br>" + d.properties.biomas + " Biomas" + "<br>" + d.properties.hydropower + " Hydropower" + "<br>" + d.properties.geothermal + " Geothermal" ;});
+
+	})
+	.on("mouseout",  function(d,i) {
+		tooltip.classed("hidden", true);
+	}); 
+
+	$.getJSON( "http://smart-ip.net/geoip-json?callback=?",
+        function(data){
+            console.log( data);
+          addpoint(data.longitude, data.latitude, data.city);
+          $("span.city").html(data.city);
+          //$.get("http://freegeoip.net/json/186.136.129.208").then(function(r){
+            ////console.log(r);
+          //})
+        }
+    );
+
+}
+
+
+function redraw() {
+  width = document.getElementById('container').offsetWidth;
+  height = width / 2;
+  d3.select('svg').remove();
+  setup(width,height);
+  draw(topo);
+}
+
+
+function move() {
+
+  var t = d3.event.translate;
+  var s = d3.event.scale; 
+  zscale = s;
+  var h = height/4;
+
+
+  t[0] = Math.min(
+    (width/height)  * (s - 1), 
+    Math.max( width * (1 - s), t[0] )
+  );
+
+  t[1] = Math.min(
+    h * (s - 1) + h * s, 
+    Math.max(height  * (1 - s) - h * s, t[1])
+  );
+
+  zoom.translate(t);
+  g.attr("transform", "translate(" + t + ")scale(" + s + ")");
+
+  //adjust the country hover stroke width based on zoom level
+  d3.selectAll(".country").style("stroke-width", 1.5 / s);
+
+}
+
+var throttleTimer;
+function throttle() {
+  window.clearTimeout(throttleTimer);
+  throttleTimer = window.setTimeout(function() {
+    redraw();
+  }, 200);
+}
+
+
+//geo translation on mouse click in map
+function click() {
+  var latlon = projection.invert(d3.mouse(this));
+  console.log(latlon);
+}
+
+
+//function to add points and text to the map (used in plotting capitals)
+function addpoint(longitude, latitude, text) {
+
+  var gpoint = g.append("g").attr("class", "gpoint");
+  var x = projection([longitude, latitude])[0];
+  var y = projection([longitude, latitude])[1];
+
+  gpoint.append("svg:circle")
+  .attr("cx", x)
+  .attr("cy", y)
+  .attr("class","point")
+  .attr("r", 1.5)
+  .style("fill", "#ddd");
+
+  //conditional in case a point has no associated text
+  if(text.length>0){
+    gpoint.append("text")
+    .attr("x", x+2)
+    .attr("y", y+2)
+    .attr("class","text")
+    .text(text)
+    .style("fill", "#ddd");
+  }
+
+}
+
+</script>
